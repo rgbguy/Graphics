@@ -10,7 +10,8 @@ private/main.cpp
 private/shader.cpp
 private/vao.cpp
 private/vbo.cpp
-private/ebo.cpp)
+private/ebo.cpp
+private/baseApp.cpp)
 
 find_package(OpenGL REQUIRED)
 

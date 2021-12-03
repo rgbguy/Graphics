@@ -14,8 +14,6 @@
 #include "vbo.h"
 #include "ebo.h"
 
-#define DEBUG 0
-
 namespace SnakeGame
 {
 class Block{

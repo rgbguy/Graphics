@@ -7,8 +7,7 @@
 #include <fstream>
 #include <streambuf>
 #include <sstream>
-
-#define LOG(x, level) if(DEBUG || !level) std::cout << x
+#include <utility.h>
 
 enum ShaderType{
     vertexShader,
