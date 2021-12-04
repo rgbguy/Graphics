@@ -12,7 +12,8 @@ private:
     GLFWwindow* window;
 public:
     baseApp();
-    void CreateWindow();
+
+    void CreateWindow(int w, int h, const char * title);
 
     virtual void Start();
     virtual void Update();

@@ -6,9 +6,10 @@
 class firstTriangle : public baseApp
 {
 public:
+
     firstTriangle()
     {
-        baseApp::CreateWindow();
+        baseApp::CreateWindow(400, 400, "red triangle");
     }
     void Start() override
     {

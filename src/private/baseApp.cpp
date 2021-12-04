@@ -4,7 +4,7 @@ baseApp::baseApp()
 {
 }
 
-void baseApp::CreateWindow()
+void baseApp::CreateWindow(int w, int h, const char * title)
 {
     // glfw: initialize and configure
     glfwInit();
@@ -17,7 +17,7 @@ void baseApp::CreateWindow()
 #endif
 
     // glfw window creation
-    GLFWwindow* window = glfwCreateWindow(400, 400, "Graphics", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(w, h, title, NULL, NULL);
     if (window == NULL)
     {
         LOG("Failed to create GLFW window\n", 0);
@@ -42,7 +42,7 @@ void baseApp::CreateWindow()
 
         glfwSwapBuffers(window);
         glfwPollEvents();
-    }
+    }    
     glfwTerminate();
 
 }
