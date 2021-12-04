@@ -5,4 +5,13 @@
 
 class firstTriangle : public baseApp
 {
+public:
+    void Start() override
+    {
+        LOG("First Tri Start\n", 1);
+    }
+    void Update() override
+    {
+        LOG("First Tri Update\n", 1);
+    }
 };

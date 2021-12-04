@@ -14,7 +14,7 @@ public:
     baseApp();
     void CreateWindow();
 
-    void Start();
-    void Update();
+    virtual void Start();
+    virtual void Update();
 };
 #endif

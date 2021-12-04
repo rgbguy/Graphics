@@ -50,10 +50,10 @@ void baseApp::CreateWindow()
 
 void baseApp::Start()
 {
-    LOG("Start!\n", 1);
+    LOG("Base Start!\n", 1);
 }
 
 void baseApp::Update()
 {
-    LOG("Update loop\n", 1);
+    LOG("Base Update loop\n", 1);
 }
