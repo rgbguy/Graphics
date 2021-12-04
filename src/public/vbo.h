@@ -15,6 +15,7 @@ public:
 	void Bind();
 	// Unbinds the VBO
 	void Unbind();
+	// Set Vertices
 	// Deletes the VBO
 	void Delete();
 };

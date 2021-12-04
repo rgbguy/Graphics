@@ -76,8 +76,8 @@ void RUN(const char * arg0)
 #else
     std::string exepath = "";
 #endif
-    std::string vspath = exepath + "shaders/shader.vert";
-    std::string fspath = exepath + "shaders/shader.frag";
+    std::string vspath = exepath + "shaders/snake.vert";
+    std::string fspath = exepath + "shaders/snake.frag";
 
     unsigned int shaderProgram = CreateShaderProgram(vspath.c_str(), fspath.c_str());
     glUseProgram(shaderProgram);
