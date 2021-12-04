@@ -5,6 +5,8 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 class texturedTriangle : public baseApp
 {
@@ -39,16 +41,13 @@ public:
 
 	    VAO VAO1;
 	    VAO1.Bind();
-	    VBO VBO1(vertices, sizeof(vertices));
+	    VBO VBO_vert(vertices, sizeof(vertices));
+        VBO VBO_texC(texCoords, sizeof(texCoords));
 
-        unsigned int texcBuff;
-        glGenBuffers(1, &texcBuff);
-	    glBindBuffer(GL_ARRAY_BUFFER, texcBuff);
-	    glBufferData(GL_ARRAY_BUFFER, sizeof(texCoords), texCoords, GL_STATIC_DRAW);
-	    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	    glEnableVertexAttribArray(1);
 
-	    VAO1.LinkVBO(VBO1, 0);
+        VAO1.LinkAttrib(VBO_vert, 0, 3, GL_FLOAT, 0, (void*)0);
+        VAO1.LinkAttrib(VBO_texC, 1, 2, GL_FLOAT, 0, (void*)0);
+
         modelMat = glm::mat4(1.0f);
 
         unsigned int texture;

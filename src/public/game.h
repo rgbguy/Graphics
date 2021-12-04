@@ -100,7 +100,7 @@ void RUN(const char * arg0)
 	VBO VBO1(vertices, sizeof(vertices));
 
 	// Links VBO to VAO
-	VAO1.LinkVBO(VBO1, 0);
+	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 0, (void*)0);
 	// Unbind all to prevent accidentally modifying them
 	VAO1.Unbind();
 	VBO1.Unbind();

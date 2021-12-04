@@ -1,4 +1,3 @@
-#include "game.h"
 #include "texturedTriangle.h"
 
 int main(int argc, char* argv[])

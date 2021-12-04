@@ -31,7 +31,7 @@ public:
 	    VAO VAO1;
 	    VAO1.Bind();
 	    VBO VBO1(vertices, sizeof(vertices));
-	    VAO1.LinkVBO(VBO1, 0);
+	    VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 0, (void*)0);
         modelMat = glm::mat4(1.0f);
     }
 
