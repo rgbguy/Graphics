@@ -1,9 +1,8 @@
 #include "game.h"
-#include "firstTriangle.h"
+#include "texturedTriangle.h"
 
 int main(int argc, char* argv[])
 {
-    firstTriangle Tri = firstTriangle();
-    getchar();
+    texturedTriangle Tri = texturedTriangle();
     return 0;
 }
