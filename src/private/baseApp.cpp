@@ -2,7 +2,6 @@
 
 baseApp::baseApp()
 {
-    CreateWindow();
 }
 
 void baseApp::CreateWindow()

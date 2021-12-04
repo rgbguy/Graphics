@@ -6,6 +6,10 @@
 class firstTriangle : public baseApp
 {
 public:
+    firstTriangle()
+    {
+        baseApp::CreateWindow();
+    }
     void Start() override
     {
         LOG("First Tri Start\n", 1);
