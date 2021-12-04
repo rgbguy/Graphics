@@ -4,7 +4,7 @@
 int main(int argc, char* argv[])
 {
     //SnakeGame::RUN(argv[0]);
-    Graphics::baseApp app = Graphics::baseApp();
+    baseApp app = baseApp();
     getchar();
     return 0;
 }

@@ -6,8 +6,6 @@
 #include <iostream>
 #include "utility.h"
 
-namespace Graphics
-{
 class baseApp
 {
 private:
@@ -19,5 +17,4 @@ public:
     void Start();
     void Update();
 };
-}
 #endif

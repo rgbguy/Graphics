@@ -1,7 +1,5 @@
 #include "baseApp.h"
 
-namespace Graphics
-{
 baseApp::baseApp()
 {
     CreateWindow();
@@ -58,6 +56,4 @@ void baseApp::Start()
 void baseApp::Update()
 {
     LOG("Update loop\n", 1);
-}
-
 }
