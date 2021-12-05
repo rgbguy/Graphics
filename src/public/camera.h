@@ -8,7 +8,7 @@
 
 class Camera
 {
-private:
+public:
     glm::vec3 position = glm::vec3(0,0,10.f);
     glm::vec3 forward = glm::vec3(0,0,-1.0f);
     glm::vec3 up = glm::vec3(0, 1.0f, 0.0f);
@@ -22,4 +22,6 @@ public:
     ~Camera();
 
     void Activate(unsigned int shader);
+    void Update(unsigned int shader, glm::vec3 position_, glm::vec3 forward_, glm::vec3 up_);
+
 };

@@ -10,6 +10,8 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+Camera cam;
+
 class texturedTriangle : public baseApp
 {
 public:
@@ -59,12 +61,12 @@ public:
 	    WallTexture.SetUniform(shaderProgram, "tex1");
         WallTexture.Use();
 
-        Camera cam;
         cam.Activate(shaderProgram);
     }
 
     void Update() override
     {
+        cam.Update(shaderProgram, cam.position + glm::vec3(0,0,-0.01f), cam.forward, cam.up);
         modelMat = glm::rotate(modelMat, glm::radians(1.0f), glm::vec3(0.0f,0,1.0f));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "modelMat"), 1, GL_FALSE, &modelMat[0][0]);
         LOG("First Tri Update\n", 1);
