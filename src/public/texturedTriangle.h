@@ -3,6 +3,7 @@
 #include "vao.h"
 #include "shader.h"
 #include "texture.h"
+#include "camera.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -57,6 +58,9 @@ public:
 	    Texture WallTexture("../res/textures/wall.jpeg", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGBA, GL_UNSIGNED_BYTE);
 	    WallTexture.SetUniform(shaderProgram, "tex1");
         WallTexture.Use();
+
+        Camera cam;
+        cam.Activate(shaderProgram);
     }
 
     void Update() override

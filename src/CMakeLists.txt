@@ -12,7 +12,8 @@ private/vao.cpp
 private/vbo.cpp
 private/ebo.cpp
 private/baseApp.cpp
-private/texture.cpp)
+private/texture.cpp
+private/camera.cpp)
 
 find_package(OpenGL REQUIRED)
 
