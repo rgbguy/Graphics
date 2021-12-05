@@ -4,7 +4,7 @@ baseApp::baseApp()
 {
 }
 
-void baseApp::CreateWindow(int w, int h, const char * title)
+void baseApp::CreateWindow(int w, int h, std::string title)
 {
     // glfw: initialize and configure
     glfwInit();
@@ -17,7 +17,8 @@ void baseApp::CreateWindow(int w, int h, const char * title)
 #endif
 
     // glfw window creation
-    GLFWwindow* window = glfwCreateWindow(w, h, title, NULL, NULL);
+
+    GLFWwindow* window = glfwCreateWindow(w, h, (title + " " +std::to_string(FPScounter)).c_str(), NULL, NULL);
     if (window == NULL)
     {
         LOG("Failed to create GLFW window\n", 0);
@@ -33,8 +34,11 @@ void baseApp::CreateWindow(int w, int h, const char * title)
 
     Start();
 
+
     while (!glfwWindowShouldClose(window))
     {
+        auto start = std::chrono::system_clock::now();
+
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -42,6 +46,11 @@ void baseApp::CreateWindow(int w, int h, const char * title)
 
         glfwSwapBuffers(window);
         glfwPollEvents();
+
+        auto end = std::chrono::system_clock::now();
+        auto elapsed = end - start;
+        FPScounter = 1/(elapsed.count()/1000000.0f);
+        glfwSetWindowTitle(window, (title + " - FPS: " +std::to_string(FPScounter)).c_str());
     }    
     glfwTerminate();
 
