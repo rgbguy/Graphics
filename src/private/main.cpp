@@ -1,7 +1,7 @@
-#include "texturedTriangle.h"
+#include "EX_modelLoading.h"
 
 int main(int argc, char* argv[])
 {
-    texturedTriangle Tri = texturedTriangle();
+    modelLoading Model = modelLoading();
     return 0;
 }
