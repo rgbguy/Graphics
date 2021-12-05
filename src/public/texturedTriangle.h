@@ -2,6 +2,7 @@
 #include "vbo.h"
 #include "vao.h"
 #include "shader.h"
+#include "texture.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -15,7 +16,7 @@ public:
     unsigned int shaderProgram;
     texturedTriangle()
     {
-        baseApp::CreateWindow(400, 400, "textured triangle");
+        baseApp::CreateWindow(400, 400, "multi textured triangle");
     }
     void Start() override
     {
@@ -44,46 +45,22 @@ public:
 	    VBO VBO_vert(vertices, sizeof(vertices));
         VBO VBO_texC(texCoords, sizeof(texCoords));
 
-
         VAO1.LinkAttrib(VBO_vert, 0, 3, GL_FLOAT, 0, (void*)0);
         VAO1.LinkAttrib(VBO_texC, 1, 2, GL_FLOAT, 0, (void*)0);
 
         modelMat = glm::mat4(1.0f);
 
-        unsigned int texture;
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
-        // set the texture wrapping/filtering options (on the currently bound texture object)
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        // load and generate the texture
-        int width, height, nrChannels;
-        unsigned char *data = stbi_load("/Users/rgbguy/Documents/Dev/Repositories/Graphics/src/public/wall.jpeg", &width, &height, &nrChannels, 0);
-        if (data)
-        {
-            std::cout << "Texture Loaded" << std::endl;   
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-            glGenerateMipmap(GL_TEXTURE_2D);
-        }
-        else
-        {
-            std::cout << "Failed to load texture" << std::endl;
-        }
-        stbi_image_free(data);
+	    Texture GridTexture("../res/textures/grid.jpeg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
+	    GridTexture.SetUniform(shaderProgram, "tex0");
+        GridTexture.Use();
 
-        glActiveTexture(GL_TEXTURE0);
-        int locTex0 = glGetUniformLocation(shaderProgram, "tex0");
-        glUniform1i(locTex0, 0);   //use texture bound to GL_TEXTURE0
-
-
+	    Texture WallTexture("../res/textures/wall.jpeg", GL_TEXTURE_2D, GL_TEXTURE1, GL_RGBA, GL_UNSIGNED_BYTE);
+	    WallTexture.SetUniform(shaderProgram, "tex1");
+        WallTexture.Use();
     }
 
     void Update() override
     {
-        glActiveTexture(GL_TEXTURE0);
-        
         modelMat = glm::rotate(modelMat, glm::radians(1.0f), glm::vec3(0.0f,0,1.0f));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "modelMat"), 1, GL_FALSE, &modelMat[0][0]);
         LOG("First Tri Update\n", 1);
