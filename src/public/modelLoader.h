@@ -2,7 +2,7 @@
 #include<objLoader.h>
 #include<iostream>
 
-class MeshLoader
+class ModelLoader
 {
 public:
     std::vector<objl::Vertex> ObjVertices;
@@ -11,7 +11,7 @@ public:
     std::vector<float> normal;
     std::vector<float> texcoord;
 
-    MeshLoader(std::string Path)
+    ModelLoader(std::string Path)
     {
         objl::Loader Loader;
         if (Loader.LoadFile(Path))
@@ -38,4 +38,11 @@ public:
             texcoord.push_back(it.TextureCoordinate.Y);
         }
     }
+
+    void Draw()
+    {
+        glDrawArrays(GL_TRIANGLES, 0, position.size()/3);
+    }
+
+
 };

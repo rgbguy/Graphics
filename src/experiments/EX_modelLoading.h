@@ -15,7 +15,7 @@ class modelLoading : public baseApp
 {
 public:
     glm::mat4 modelMat = glm::mat4(1.0f);
-    MeshLoader testModel = MeshLoader("../res/meshes/cow.obj");
+    ModelLoader testModel = ModelLoader("../res/meshes/cow.obj");
 
     modelLoading()
     {
@@ -55,8 +55,15 @@ public:
 
     void Update() override
     {
-        modelMat = glm::rotate(modelMat, glm::radians(1.0f), glm::vec3(0, 1.0f, 0));
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "modelMat"), 1, GL_FALSE, &modelMat[0][0]);
-        glDrawArrays(GL_TRIANGLES, 0, testModel.position.size()/3); 
+        for (int i = 0; i < 10; i++)
+        {
+            for (int j = 0; j < 10; j++)
+            {
+                modelMat = glm::mat4(1.0f);
+                modelMat = glm::translate(modelMat, glm::vec3(i*10.0f, -j*10.0f, -j*10.0f));
+                glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "modelMat"), 1, GL_FALSE, &modelMat[0][0]);
+                testModel.Draw();
+            }
+        }
     }
 };
