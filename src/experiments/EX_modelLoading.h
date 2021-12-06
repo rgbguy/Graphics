@@ -74,10 +74,34 @@ public:
 
     void Update() override
     {
-        //cam.Update(shaderProgram, cam.position + glm::vec3(0,0,-0.01f), cam.forward, cam.up);
-        modelMat = glm::rotate(modelMat, glm::radians(1.0f), glm::vec3(0.0f,0,1.0f));
+        cam.Update(shaderProgram, cam.position, cam.forward, cam.up);
+        //modelMat = glm::rotate(modelMat, glm::radians(1.0f), glm::vec3(0.0f,0,1.0f));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "modelMat"), 1, GL_FALSE, &modelMat[0][0]);
         LOG("First Tri Update\n", 1);
         glDrawArrays(GL_TRIANGLES, 0, 3); 
+    }
+
+    void Input(GLFWwindow* window_) override
+    {
+        if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_PRESS)
+	    {
+            std::cout << "W pressed\n";
+            cam.position =  cam.position + glm::vec3(0,0,-0.1f);
+	    }
+        if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_PRESS)
+	    {
+            std::cout << "A pressed\n";
+            cam.position =  cam.position + glm::vec3(-0.1f,0,0);
+	    }
+        if (glfwGetKey(window_, GLFW_KEY_S) == GLFW_PRESS)
+	    {
+            std::cout << "S pressed\n";
+            cam.position =  cam.position + glm::vec3(0,0,0.1f);
+	    }
+        if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS)
+	    {
+            std::cout << "D pressed\n";
+            cam.position =  cam.position + glm::vec3(0.1f,0,0);
+	    }
     }
 };

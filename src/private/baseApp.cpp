@@ -59,10 +59,12 @@ void baseApp::CreateWindow(int w, int h, std::string title)
 
 void baseApp::InputHandler(GLFWwindow* window_)
 {
-	if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_PRESS)
-	{
-        std::cout << "W pressed\n";
-	}
+    Input(window_);
+}
+
+void baseApp::Input(GLFWwindow* window_)
+{
+    LOG("Base Input!\n", 1);
 }
 
 void baseApp::Start()

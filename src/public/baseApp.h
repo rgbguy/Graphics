@@ -22,5 +22,6 @@ public:
     virtual void Update();
 
     void InputHandler(GLFWwindow* window_);
+    virtual void Input(GLFWwindow* window_);
 };
 #endif
