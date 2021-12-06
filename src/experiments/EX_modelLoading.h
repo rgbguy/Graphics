@@ -11,55 +11,35 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
-int possize;
 class modelLoading : public baseApp
 {
 public:
-    glm::mat4 modelMat;
+    glm::mat4 modelMat = glm::mat4(1.0f);
+    MeshLoader testModel = MeshLoader("../res/meshes/cow.obj");
+
     modelLoading()
     {
         baseApp::CreateWindow(400, 400, "model loading");
     }
     void Start() override
     {
-        std::string Path = "../res/meshes/cow.obj";
-        MeshLoader CowMesh = MeshLoader(Path);
-        std::vector<float> Positions = CowMesh.ObjVertexPos;
-        std::vector<float> Normals = CowMesh.ObjVertexNormal;
-        std::vector<float> TexCoord = CowMesh.ObjTextureCoord;
-
-        std::cout << "Pos size: " << Positions.size() << "\n";
-        LOG("First Tri Start\n", 1);
-        possize = Positions.size();
         std::string vspath = "shaders/modelLoading.vert";
         std::string fspath = "shaders/modelLoading.frag";
 
         shaderProgram = CreateShaderProgram(vspath.c_str(), fspath.c_str());
         glUseProgram(shaderProgram);
 
-        float vertices[] = {
-            0.0f,  0.5f, 0.0f,  // top
-            0.5f, -0.5f, 0.0f,  // bottom right
-           -0.5f, -0.5f, 0.0f,  // bottom left
-        };
-
-        float texCoords[] = {
-            0.0f, 0.0f,  // lower-left corner  
-            1.0f, 0.0f,  // lower-right corner
-            0.5f, 1.0f   // top-center corner
-        };
-
 	    VAO VAO1;
 	    VAO1.Bind();
-	    VBO VBO_vert(&Positions[0], Positions.size() * sizeof(float));
-        VBO VBO_texC(&TexCoord[0], TexCoord.size() * sizeof(float));
-        VBO VBO_norm(&Normals[0], Normals.size() * sizeof(float));
+	    VBO VBO_vert(&testModel.position[0], testModel.position.size() * sizeof(float));
+        VBO VBO_texC(&testModel.texcoord[0], testModel.texcoord.size() * sizeof(float));
+        VBO VBO_norm(&testModel.normal[0],   testModel.normal.size()   * sizeof(float));
 
         VAO1.LinkAttrib(VBO_vert, 0, 3, GL_FLOAT, 0, (void*)0);
         VAO1.LinkAttrib(VBO_texC, 1, 2, GL_FLOAT, 0, (void*)0);
         VAO1.LinkAttrib(VBO_norm, 2, 3, GL_FLOAT, 0, (void*)0);
 
-        modelMat = glm::mat4(1.0f);
+        //VAO1.Unbind();
 
 	    Texture GridTexture("../res/textures/grid.jpeg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE);
 	    GridTexture.SetUniform(shaderProgram, "tex0");
@@ -77,7 +57,6 @@ public:
     {
         modelMat = glm::rotate(modelMat, glm::radians(1.0f), glm::vec3(0, 1.0f, 0));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "modelMat"), 1, GL_FALSE, &modelMat[0][0]);
-        LOG("First Tri Update\n", 1);
-        glDrawArrays(GL_TRIANGLES, 0, possize/3); 
+        glDrawArrays(GL_TRIANGLES, 0, testModel.position.size()/3); 
     }
 };

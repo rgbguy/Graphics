@@ -13,7 +13,7 @@ public:
     glm::vec3 forward = glm::vec3(0,0,-1.0f);
     glm::vec3 up = glm::vec3(0, 1.0f, 0.0f);
 
-    float fov = 90.0f;
+    float fov = 60.0f;
     glm::mat4 viewMat = glm::mat4(1.0f);
     glm::mat4 projMat = glm::mat4(1.0f);
 

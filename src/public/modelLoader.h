@@ -4,11 +4,12 @@
 
 class MeshLoader
 {
+public:
     std::vector<objl::Vertex> ObjVertices;
 public:
-    std::vector<float> ObjVertexNormal;
-    std::vector<float> ObjVertexPos;
-    std::vector<float> ObjTextureCoord;
+    std::vector<float> position;
+    std::vector<float> normal;
+    std::vector<float> texcoord;
 
     MeshLoader(std::string Path)
     {
@@ -25,16 +26,16 @@ public:
         ObjVertices = Loader.LoadedVertices;
         for (auto it : ObjVertices)
         {
-            ObjVertexPos.push_back(it.Position.X);
-            ObjVertexPos.push_back(it.Position.Y);
-            ObjVertexPos.push_back(it.Position.Z);
+            position.push_back(it.Position.X);
+            position.push_back(it.Position.Y);
+            position.push_back(it.Position.Z);
 
-            ObjVertexNormal.push_back(it.Normal.X);
-            ObjVertexNormal.push_back(it.Normal.Y);
-            ObjVertexNormal.push_back(it.Normal.Z);
+            normal.push_back(it.Normal.X);
+            normal.push_back(it.Normal.Y);
+            normal.push_back(it.Normal.Z);
 
-            ObjTextureCoord.push_back(it.TextureCoordinate.X);
-            ObjTextureCoord.push_back(it.TextureCoordinate.Y);
+            texcoord.push_back(it.TextureCoordinate.X);
+            texcoord.push_back(it.TextureCoordinate.Y);
         }
     }
 };
