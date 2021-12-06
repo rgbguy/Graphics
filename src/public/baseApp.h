@@ -20,5 +20,7 @@ public:
 
     virtual void Start();
     virtual void Update();
+
+    void InputHandler(GLFWwindow* window_);
 };
 #endif

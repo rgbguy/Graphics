@@ -4,6 +4,7 @@
 #include "shader.h"
 #include "texture.h"
 #include "camera.h"
+#include "modelLoader.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -23,6 +24,13 @@ public:
     }
     void Start() override
     {
+    std::string Path = "../res/meshes/cube.obj";
+    MeshLoader CowMesh = MeshLoader(Path);
+    std::vector<float> Positions = CowMesh.ObjVertexPos;
+    std::vector<float> Normals = CowMesh.ObjVertexNormal;
+    std::vector<float> TexCoord = CowMesh.ObjTextureCoord;
+
+    std::cout << "Pos size: " << Positions.size() << "\n";
         LOG("First Tri Start\n", 1);
 
         std::string vspath = "shaders/textured.vert";
@@ -66,7 +74,7 @@ public:
 
     void Update() override
     {
-        cam.Update(shaderProgram, cam.position + glm::vec3(0,0,-0.01f), cam.forward, cam.up);
+        //cam.Update(shaderProgram, cam.position + glm::vec3(0,0,-0.01f), cam.forward, cam.up);
         modelMat = glm::rotate(modelMat, glm::radians(1.0f), glm::vec3(0.0f,0,1.0f));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "modelMat"), 1, GL_FALSE, &modelMat[0][0]);
         LOG("First Tri Update\n", 1);

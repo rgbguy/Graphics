@@ -42,6 +42,7 @@ void baseApp::CreateWindow(int w, int h, std::string title)
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        InputHandler(window);
         Update();
 
         glfwSwapBuffers(window);
@@ -54,6 +55,14 @@ void baseApp::CreateWindow(int w, int h, std::string title)
     }    
     glfwTerminate();
 
+}
+
+void baseApp::InputHandler(GLFWwindow* window_)
+{
+	if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_PRESS)
+	{
+        std::cout << "W pressed\n";
+	}
 }
 
 void baseApp::Start()

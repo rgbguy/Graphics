@@ -17,13 +17,13 @@ Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, 
     unsigned char *data = stbi_load(image, &width, &height, &nrChannels, 0);
     if (data)
     {
-        std::cout << "Texture Loaded" << std::endl;   
+        LOG("Texture Loaded\n", 1);
         glTexImage2D(texType, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(texType);
     }
     else
     {
-        std::cout << "Failed to load texture" << std::endl;
+        LOG("Failed to load Texture\n", 1);
     }
     stbi_image_free(data);
 	// Unbinds the OpenGL Texture object so that it can't accidentally be modified
