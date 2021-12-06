@@ -19,16 +19,13 @@ Camera::Camera(glm::vec3 position_, glm::vec3 forward_, glm::vec3 up_)
 void Camera::Activate(unsigned int shader)
 {
 	glUseProgram(shader);
+    activated = true;
     glUniformMatrix4fv(glGetUniformLocation(shader, "viewMat"), 1, GL_FALSE, &viewMat[0][0]);
     glUniformMatrix4fv(glGetUniformLocation(shader, "projMat"), 1, GL_FALSE, &projMat[0][0]);
 }
 
-void Camera::Update(unsigned int shader, glm::vec3 position_, glm::vec3 forward_, glm::vec3 up_)
+void Camera::Update(unsigned int shader)
 {
-    position = position_;
-    forward = forward_;
-    up = up_;
-
     viewMat = glm::lookAt(position, position + forward, up);
     projMat = glm::perspective(glm::radians(fov), 1.0f, 0.0f, 100.0f);
 

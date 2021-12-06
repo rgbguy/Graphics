@@ -7,6 +7,7 @@
 #include "utility.h"
 #include <chrono>
 #include <string>
+#include "camera.h"
 
 class baseApp
 {
@@ -16,6 +17,8 @@ private:
 public:
     baseApp();
 
+    Camera SceneCam;
+    unsigned int shaderProgram;
     void CreateWindow(int w, int h, std::string title);
 
     virtual void Start();

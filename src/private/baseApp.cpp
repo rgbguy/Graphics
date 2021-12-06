@@ -38,6 +38,7 @@ void baseApp::CreateWindow(int w, int h, std::string title)
     //glEnable(GL_DEPTH_TEST);
     while (!glfwWindowShouldClose(window))
     {
+        if(SceneCam.activated) SceneCam.Update(shaderProgram);
         auto start = std::chrono::system_clock::now();
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -66,6 +67,26 @@ void baseApp::InputHandler(GLFWwindow* window_)
 void baseApp::Input(GLFWwindow* window_)
 {
     LOG("Base Input!\n", 1);
+    if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_PRESS)
+	{
+        LOG("W pressed\n",1);
+        SceneCam.position =  SceneCam.position + glm::vec3(0,0,-0.1f);
+	}
+    if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_PRESS)
+	{
+        LOG("A pressed\n",1);
+        SceneCam.position =  SceneCam.position + glm::vec3(-0.1f,0,0);
+	}
+    if (glfwGetKey(window_, GLFW_KEY_S) == GLFW_PRESS)
+	{
+        LOG("S pressed\n",1);
+        SceneCam.position =  SceneCam.position + glm::vec3(0,0,0.1f);
+	}
+    if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS)
+	{
+        LOG("D pressed\n",1);
+        SceneCam.position =  SceneCam.position + glm::vec3(0.1f,0,0);
+	}
 }
 
 void baseApp::Start()
