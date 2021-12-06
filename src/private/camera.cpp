@@ -29,7 +29,7 @@ void Camera::Update(unsigned int shader, glm::vec3 position_, glm::vec3 forward_
     forward = forward_;
     up = up_;
 
-    viewMat = glm::lookAt(position, forward, up);
+    viewMat = glm::lookAt(position, position + forward, up);
     projMat = glm::perspective(glm::radians(fov), 1.0f, 0.0f, 100.0f);
 
 	glUseProgram(shader);
