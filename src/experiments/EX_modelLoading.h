@@ -12,7 +12,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 
 Camera cam;
-
+int possize;
 class modelLoading : public baseApp
 {
 public:
@@ -20,11 +20,11 @@ public:
     unsigned int shaderProgram;
     modelLoading()
     {
-        baseApp::CreateWindow(400, 400, "multi textured triangle");
+        baseApp::CreateWindow(400, 400, "model loading");
     }
     void Start() override
     {
-    std::string Path = "../res/meshes/cube.obj";
+    std::string Path = "../res/meshes/cow.obj";
     MeshLoader CowMesh = MeshLoader(Path);
     std::vector<float> Positions = CowMesh.ObjVertexPos;
     std::vector<float> Normals = CowMesh.ObjVertexNormal;
@@ -32,9 +32,9 @@ public:
 
     std::cout << "Pos size: " << Positions.size() << "\n";
         LOG("First Tri Start\n", 1);
-
-        std::string vspath = "shaders/textured.vert";
-        std::string fspath = "shaders/textured.frag";
+    possize = Positions.size();
+        std::string vspath = "shaders/modelLoading.vert";
+        std::string fspath = "shaders/modelLoading.frag";
 
         shaderProgram = CreateShaderProgram(vspath.c_str(), fspath.c_str());
         glUseProgram(shaderProgram);
@@ -53,8 +53,8 @@ public:
 
 	    VAO VAO1;
 	    VAO1.Bind();
-	    VBO VBO_vert(vertices, sizeof(vertices));
-        VBO VBO_texC(texCoords, sizeof(texCoords));
+	    VBO VBO_vert(&Positions[0], Positions.size() * sizeof(float));
+        VBO VBO_texC(&TexCoord[0], TexCoord.size() * sizeof(float));
 
         VAO1.LinkAttrib(VBO_vert, 0, 3, GL_FLOAT, 0, (void*)0);
         VAO1.LinkAttrib(VBO_texC, 1, 2, GL_FLOAT, 0, (void*)0);
@@ -78,29 +78,29 @@ public:
         //modelMat = glm::rotate(modelMat, glm::radians(1.0f), glm::vec3(0.0f,0,1.0f));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "modelMat"), 1, GL_FALSE, &modelMat[0][0]);
         LOG("First Tri Update\n", 1);
-        glDrawArrays(GL_TRIANGLES, 0, 3); 
+        glDrawArrays(GL_TRIANGLES, 0, possize/3); 
     }
 
     void Input(GLFWwindow* window_) override
     {
         if (glfwGetKey(window_, GLFW_KEY_W) == GLFW_PRESS)
 	    {
-            std::cout << "W pressed\n";
+            LOG("W pressed\n",1);
             cam.position =  cam.position + glm::vec3(0,0,-0.1f);
 	    }
         if (glfwGetKey(window_, GLFW_KEY_A) == GLFW_PRESS)
 	    {
-            std::cout << "A pressed\n";
+            LOG("A pressed\n",1);
             cam.position =  cam.position + glm::vec3(-0.1f,0,0);
 	    }
         if (glfwGetKey(window_, GLFW_KEY_S) == GLFW_PRESS)
 	    {
-            std::cout << "S pressed\n";
+            LOG("S pressed\n",1);
             cam.position =  cam.position + glm::vec3(0,0,0.1f);
 	    }
         if (glfwGetKey(window_, GLFW_KEY_D) == GLFW_PRESS)
 	    {
-            std::cout << "D pressed\n";
+            LOG("D pressed\n",1);
             cam.position =  cam.position + glm::vec3(0.1f,0,0);
 	    }
     }

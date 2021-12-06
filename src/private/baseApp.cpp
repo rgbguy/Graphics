@@ -34,7 +34,8 @@ void baseApp::CreateWindow(int w, int h, std::string title)
 
     Start();
 
-
+    glDisable(GL_CULL_FACE);
+    //glEnable(GL_DEPTH_TEST);
     while (!glfwWindowShouldClose(window))
     {
         auto start = std::chrono::system_clock::now();
