@@ -1,7 +1,9 @@
 #include "EX_modelLoading.h"
+#include "windowCreator.h"
 
 int main(int argc, char* argv[])
 {
-    modelLoading Model = modelLoading();
+    GLFWwindow* window = CreateWindow(400, 400, "First Window");
+    modelLoading Model = modelLoading(window);
     return 0;
 }

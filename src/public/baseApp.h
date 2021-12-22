@@ -14,12 +14,13 @@ class baseApp
 private:
     GLFWwindow* window;
     int FPScounter;
+    std::string title;
 public:
     baseApp();
 
     Camera SceneCam;
     unsigned int shaderProgram;
-    void CreateWindow(int w, int h, std::string title);
+    void AppMain(GLFWwindow* window_);
 
     virtual void Start();
     virtual void Update();

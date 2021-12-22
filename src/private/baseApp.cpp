@@ -4,34 +4,14 @@ baseApp::baseApp()
 {
 }
 
-void baseApp::CreateWindow(int w, int h, std::string title)
+void baseApp::AppMain(GLFWwindow* window_)
 {
-    // glfw: initialize and configure
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
-
-    // glfw window creation
-
-    GLFWwindow* window = glfwCreateWindow(w, h, (title + " " +std::to_string(FPScounter)).c_str(), NULL, NULL);
-    if (window == NULL)
+    if(!window_)
     {
-        LOG("Failed to create GLFW window\n", 0);
-        glfwTerminate();
+        LOG("Failed to run. No window created. Please add this:\nGLFWwindow* window = CreateWindow(w, h, title); in main.cpp\n", 0);
+        return;
     }
-    glfwMakeContextCurrent(window);
-
-    // glad: load all OpenGL function pointers
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        LOG("Failed to initialize GLAD\n", 0);
-    }
-
+    window = window_;
     Start();
 
     glEnable(GL_DEPTH_TEST);

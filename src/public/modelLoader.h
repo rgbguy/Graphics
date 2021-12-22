@@ -1,48 +1,45 @@
-#pragma once
-#include<objLoader.h>
-#include<iostream>
+#ifndef MODEL_LOADER
+#define MODEL_LOADER
+
+#include <objLoader.h>
+#include <iostream>
+#include <glad/glad.h>
+#include "vao.h"
 
 class ModelLoader
 {
+private:
+    VAO VAO;
+    objl::Loader Loader;
+
 public:
-    std::vector<objl::Vertex> ObjVertices;
-public:
-    std::vector<float> position;
-    std::vector<float> normal;
-    std::vector<float> texcoord;
-
-    ModelLoader(std::string Path)
-    {
-        objl::Loader Loader;
-        if (Loader.LoadFile(Path))
-        {
-            std::cout << "Obj File Loaded\n";
-        }
-        else
-        {
-            std::cout << "Failed to load obj file\n";
-        }
-
-        ObjVertices = Loader.LoadedVertices;
-        for (auto it : ObjVertices)
-        {
-            position.push_back(it.Position.X);
-            position.push_back(it.Position.Y);
-            position.push_back(it.Position.Z);
-
-            normal.push_back(it.Normal.X);
-            normal.push_back(it.Normal.Y);
-            normal.push_back(it.Normal.Z);
-
-            texcoord.push_back(it.TextureCoordinate.X);
-            texcoord.push_back(it.TextureCoordinate.Y);
-        }
-    }
-
-    void Draw()
-    {
-        glDrawArrays(GL_TRIANGLES, 0, position.size()/3);
-    }
-
-
+    ModelLoader(std::string Path);
+    void Draw();
 };
+
+ModelLoader::ModelLoader(std::string Path)
+{
+    if (Loader.LoadFile(Path))
+    {
+        std::cout << "Obj File Loaded\n";
+    }
+    else
+    {
+        std::cout << "Failed to load obj file\n";
+    }
+    VBO MainVBO(&Loader.LoadedVertices[0].Position.X, Loader.LoadedVertices.size() * sizeof(objl::Vertex));
+    VAO.Bind();
+    VAO.LinkAttrib(MainVBO, 0, 3, GL_FLOAT, sizeof(objl::Vertex), (void*)0);
+    VAO.LinkAttrib(MainVBO, 1, 3, GL_FLOAT, sizeof(objl::Vertex), (void*)(3 * sizeof(float)));       
+    VAO.LinkAttrib(MainVBO, 2, 2, GL_FLOAT, sizeof(objl::Vertex), (void*)(6 * sizeof(float)));
+    VAO.Unbind();
+}
+
+void ModelLoader::Draw()
+{
+    VAO.Bind();
+    glDrawArrays(GL_TRIANGLES, 0, Loader.LoadedVertices.size());
+    VAO.Unbind();
+}
+
+#endif
