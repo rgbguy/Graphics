@@ -27,7 +27,8 @@ PUBLIC ../ext/glad/include
 PUBLIC ../ext/glm/glm
 PUBLIC public
 PUBLIC shaders
-PUBLIC experiments)
+PUBLIC experiments
+PUBLIC ../ext/imgui)
 
 target_link_directories(${PROJECT_NAME}
 PUBLIC ../ext/glfw/src
