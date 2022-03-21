@@ -32,4 +32,12 @@ public:
     void InputHandler(GLFWwindow* window_);
     virtual void Input(GLFWwindow* window_);
 };
+
+class GlobalSettings
+{
+public:
+    static int NumCows;
+};
+
+
 #endif

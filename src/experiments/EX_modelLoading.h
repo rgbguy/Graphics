@@ -36,15 +36,12 @@ public:
 
     void Update() override
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < GlobalSettings::NumCows; i++)
         {
-            for (int j = 0; j < 10; j++)
-            {
-                modelMat = glm::mat4(1.0f);
-                modelMat = glm::translate(modelMat, glm::vec3(i*10.0f, -j*10.0f, -j*10.0f));
-                glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "modelMat"), 1, GL_FALSE, &modelMat[0][0]);
-                testModel.Draw();
-            }
+            modelMat = glm::mat4(1.0f);
+            modelMat = glm::translate(modelMat, glm::vec3(i*10.0f, 0.0f, 0.0f));
+            glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "modelMat"), 1, GL_FALSE, &modelMat[0][0]);
+            testModel.Draw();
         }
     }
 };

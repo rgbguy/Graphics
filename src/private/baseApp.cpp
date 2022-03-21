@@ -1,5 +1,7 @@
 #include "baseApp.h"
 
+int GlobalSettings::NumCows = 1;
+
 baseApp::baseApp()
 {
 }
@@ -40,9 +42,10 @@ void baseApp::AppMain(GLFWwindow* window_)
         Update();
 
         // ImGUI window creation
-        ImGui::Begin("My name is window, ImGUI window");
+        ImGui::Begin("Cows");
         // Text that appears in the window
-        ImGui::Text("Hello there adventurer!");
+    
+        ImGui::InputInt("How many cows?", &GlobalSettings::NumCows);
         // Ends the window
         ImGui::End();
 
