@@ -1,6 +1,10 @@
 #include "baseApp.h"
+#include "UserInterface.h"
 
 int GlobalSettings::NumCows = 1;
+float GlobalSettings::FOV = 60.0f;
+float GlobalSettings::width = 800.0f;
+float GlobalSettings::height = 800.0f;
 
 baseApp::baseApp()
 {
@@ -19,7 +23,8 @@ void baseApp::AppMain(GLFWwindow* window_)
     // Initialize ImGUI
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
@@ -27,7 +32,7 @@ void baseApp::AppMain(GLFWwindow* window_)
     glEnable(GL_DEPTH_TEST);
     while (!glfwWindowShouldClose(window))
     {
-        if(SceneCam.activated) SceneCam.Update(shaderProgram);
+        if(SceneCam.activated) SceneCam.Update(shaderProgram, GlobalSettings::width, GlobalSettings::height);
         auto start = std::chrono::system_clock::now();
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -38,16 +43,12 @@ void baseApp::AppMain(GLFWwindow* window_)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
+        DrawUI();
+
         InputHandler(window);
         Update();
 
-        // ImGUI window creation
-        ImGui::Begin("Cows");
-        // Text that appears in the window
-    
-        ImGui::InputInt("How many cows?", &GlobalSettings::NumCows);
-        // Ends the window
-        ImGui::End();
+
 
         // Renders the ImGUI elements
         ImGui::Render();

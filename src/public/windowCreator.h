@@ -3,6 +3,8 @@
 #include <iostream>
 #include "utility.h"
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
 GLFWwindow* CreateWindow(int w, int h, std::string title)
 {
 	glfwInit();
@@ -15,6 +17,7 @@ GLFWwindow* CreateWindow(int w, int h, std::string title)
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	GLFWwindow* window = glfwCreateWindow(w, h, "YoutubeOpenGL", NULL, NULL);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	if (window == NULL)
 	{
@@ -30,3 +33,10 @@ GLFWwindow* CreateWindow(int w, int h, std::string title)
     return window;
 }
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+	GlobalSettings::width = width;
+	GlobalSettings::height = height;
+	std::cout << width << " ," << height << "\n";
+}
