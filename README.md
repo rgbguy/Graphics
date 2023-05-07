@@ -3,7 +3,7 @@ Graphics
 
 A project where I have implemented computer graphics concepts. Supports model loading, shaders. Runs as a extensible app.
 
-![App Screenshot](https://github.com/rgbguy/Azgar/blob/main/res/images/Azgar.png?raw=true)
+![App Screenshot](https://github.com/rgbguy/Graphics/tree/main/res/Graphics.PNG?raw=true)
 
 How to build ?
 -------------------
